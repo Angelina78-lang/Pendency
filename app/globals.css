@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-brand-peach: var(--color-peach-100);
+  --color-brand-coral: var(--color-coral-200);
+  --color-brand-rose: var(--color-rose-300);
+  --color-brand-lavender: var(--color-lavender-400);
+  --color-brand-purple: var(--color-purple-500);
+
+  /* Surfaces */
+  --color-surface-primary: var(--color-surface-primary);
+  --color-surface-secondary: var(--color-surface-secondary);
+  --color-surface-muted: var(--color-surface-muted);
+
+  /* Text */
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-inverse: var(--color-text-inverse);
+
+  /* Fonts */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui;
+  --font-serif: var(--font-playfair), ui-serif, Georgia;
+
+  /* Shadows */
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 20px 60px rgba(0, 0, 0, 0.12);
+  --shadow-button: 0 8px 20px rgba(156, 39, 255, 0.25);
+  --shadow-glow: 0 0 10px rgba(79, 70, 229, 0.5);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 40px;
+  --radius-pill: 9999px;
+
+  /* Animations */
+  --animate-fade-in-up: fadeInUp 0.5s ease-out forwards;
+  --animate-aurora: aurora 60s linear infinite;
+
+  --keyframes-fadeInUp: {
+    from: {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to: {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  --keyframes-aurora: {
+    from: {
+      background-position: 50% 50%, 50% 50%;
+    }
+
+    to: {
+      background-position: 350% 50%, 350% 50%;
+    }
+  }
+
+  --keyframes-marquee: {
+    from: { transform: translateX(0); }
+    to: { transform: translateX(-50%); }
+  }
+
+  --animate-marquee: marquee 30s linear infinite;
+}
+
+:root {
+  /* Brand Gradient Colors */
+  --color-peach-100: #F6B7A5;
+  --color-coral-200: #F08FA0;
+  --color-rose-300: #E78AC3;
+  --color-lavender-400: #CFA3E6;
+  --color-purple-500: #B8A4F4;
+
+  /* Surfaces */
+  --color-surface-primary: #F4F1ED;
+  --color-surface-secondary: #FFFFFF;
+  --color-surface-muted: #F7F7F7;
+
+  /* Text */
+  --color-text-primary: #111111;
+  --color-text-secondary: #555555;
+  --color-text-muted: #777777;
+  --color-text-inverse: #FFFFFF;
+
+  /* Standard Tailwind Vars Mapped */
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 240 5.9% 10%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 240 5.9% 10%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 240 5.9% 10%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --ring: 240 4.9% 83.9%;
+}
+
+@utility bg-brand-gradient {
+  background: linear-gradient(135deg,
+      var(--color-peach-100) 0%,
+      var(--color-coral-200) 25%,
+      var(--color-rose-300) 50%,
+      var(--color-lavender-400) 75%,
+      var(--color-purple-500) 100%);
+}
+
+@utility bg-cta-gradient {
+  background: linear-gradient(to right,
+      #FF7A00,
+      #9C27FF);
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+}

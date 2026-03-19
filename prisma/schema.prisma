@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model AppUser {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  applications Application[]
+}
+
+model Institution {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  type        String   // "ACADEMIC", "GOVERNMENT", "CORPORATE"
+  healthScore Float    @default(0.0) // 0-100
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  applications Application[]
+  recruiters   Recruiter[]
+}
+
+model Recruiter {
+  id            String   @id @default(uuid())
+  name          String
+  email         String?
+  linkedinProfile String?
+  responseRate  Float    @default(0.0) // 0-100%
+  institutionId String
+  institution   Institution @relation(fields: [institutionId], references: [id])
+  
+  applications  Application[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Application {
+  id              String   @id @default(uuid())
+  userId          String
+  user            AppUser @relation(fields: [userId], references: [id])
+  
+  institutionId   String?
+  institution     Institution? @relation(fields: [institutionId], references: [id])
+  
+  recruiterId     String?
+  recruiter       Recruiter? @relation(fields: [recruiterId], references: [id])
+
+  roleTitle       String
+  status          String   // "APPLIED", "INTERVIEWING", "OFFER", "REJECTED", "SILENT"
+  appliedDate     DateTime
+  lastResponseDate DateTime?
+  
+  silenceRecord   SilenceRecord?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model SilenceRecord {
+  id            String   @id @default(uuid())
+  applicationId String   @unique
+  application   Application @relation(fields: [applicationId], references: [id])
+  
+  daysHighSilence Int      @default(0)
+  riskScore       Float    @default(0.0) // Sigma value or similar metric
+  financialLoss   Float    @default(0.0)
+  
+  lastChecked     DateTime @default(now())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
