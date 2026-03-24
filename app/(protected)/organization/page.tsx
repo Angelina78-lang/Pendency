@@ -1,3 +1,4 @@
+"use client"
 
 import { useState, useEffect } from "react"
 import { Input } from "@/components/ui/input"
@@ -34,86 +35,85 @@ export default function OrganizationPage() {
     }, [debouncedQuery])
 
     return (
-        <div className="space-y-8">
+        <div className="w-full max-w-5xl mx-auto px-6 pb-24 space-y-8 flex flex-col items-center mt-8">
             {/* Header */}
-            <div>
-                <h1 className="text-3xl font-bold text-white tracking-tight mb-2">Organization Intelligence</h1>
-                <p className="text-neutral-500">Analyze institutional performance and delay patterns.</p>
+            <div className="flex flex-col items-center justify-center mb-8 px-4 text-center">
+                <h1 className="text-xl md:text-[22px] font-semibold tracking-tight text-[#EDEDED] mb-3">Organization Intelligence</h1>
+                <p className="text-[#A1A1AA] text-sm max-w-lg leading-relaxed font-normal">Analyze institutional performance and specific delay patterns across entities.</p>
             </div>
 
             {/* Search Hero */}
-            <div className="bg-[#151515]/50 backdrop-blur-md border border-white/5 rounded-2xl p-8 text-center transition-all focus-within:ring-1 focus-within:ring-[#00f3ff]/20">
-                <h2 className="text-xl font-semibold text-white mb-4">Find an Institution</h2>
-                <div className="max-w-xl mx-auto relative">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500" />
-                    <Input
-                        placeholder="Search for companies, universities, or government bodies..."
-                        className="bg-[#0D0D0D] border-white/10 text-white h-14 pl-12 rounded-xl text-lg focus-visible:ring-[#00f3ff]/50"
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                    />
+            <div className="w-full bg-transparent border-b border-[#272727] pb-10 text-center">
+                <div className="w-full max-w-2xl mx-auto relative group">
+                    <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-r from-[#3B82F6]/50 to-[#8B5CF6]/50 opacity-0 group-focus-within:opacity-100 transition-opacity duration-500 blur-sm pointer-events-none" />
+                    
+                    <div className="relative bg-[#1C1C1C] rounded-xl border border-[#272727] flex items-center p-2 focus-within:border-[#3B82F6]/50 transition-colors">
+                        <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#A1A1AA]" />
+                        <Input
+                            placeholder="Find a company, university, or government body..."
+                            className="w-full bg-transparent border-none text-[15px] text-[#EDEDED] h-12 pl-12 placeholder:text-[#52525B] focus:outline-none focus-visible:ring-0 shadow-none"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                        />
+                    </div>
                 </div>
             </div>
 
             {/* Results Grid */}
-            <div className="space-y-6">
+            <div className="w-full space-y-4">
                 {loading ? (
                     <div className="flex justify-center py-12">
-                        <Loader2 className="w-8 h-8 text-[#00f3ff] animate-spin" />
+                        <Loader2 className="w-6 h-6 text-[#A1A1AA] animate-spin" />
                     </div>
                 ) : orgs.length === 0 ? (
-                    <div className="text-center py-12 text-neutral-500">
-                        {query ? "No organizations found." : "Enter a name to start analyzing."}
+                    <div className="w-full p-12 flex flex-col items-center justify-center text-[#A1A1AA] rounded-2xl border border-dashed border-[#272727]">
+                        <p className="text-sm">{query ? "No organizations found matching your search." : "Enter a name above to start analyzing."}</p>
                     </div>
                 ) : (
                     orgs.map((org) => (
-                        <div key={org.id} className="bg-[#151515]/50 backdrop-blur-md border border-white/5 rounded-2xl overflow-hidden hover:border-white/10 transition-colors">
-                            <div className="h-24 bg-gradient-to-r from-blue-900/10 to-purple-900/10" />
-                            <div className="px-8 pb-8 -mt-12">
-                                <div className="flex flex-col md:flex-row justify-between items-end gap-4">
-                                    <div className="flex items-end gap-6">
-                                        <div className="w-20 h-20 bg-[#0D0D0D] border border-white/10 rounded-xl flex items-center justify-center shadow-2xl shrink-0">
-                                            <Building2 className="w-8 h-8 text-neutral-400" />
+                        <div key={org.id} className="bg-[#1C1C1C] rounded-2xl overflow-hidden border border-[#272727] shadow-xl group hover:border-[#3B82F6]/50 transition-colors">
+                            <div className="px-6 py-6 border-b border-[#272727]">
+                                <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
+                                    <div className="flex items-start gap-4">
+                                        <div className="w-12 h-12 bg-[#2A2A2A] border border-[#313131] rounded-xl flex items-center justify-center shrink-0">
+                                            <span className="text-[#EDEDED] font-bold tracking-tighter text-sm">{org.name.slice(0, 2).toUpperCase()}</span>
                                         </div>
                                         <div className="mb-1">
-                                            <h2 className="text-2xl font-bold text-white">{org.name}</h2>
-                                            <div className="text-sm text-neutral-500 flex flex-wrap gap-4 mt-1">
-                                                <span className="bg-white/5 px-2 py-0.5 rounded text-xs">{org.type}</span>
-                                                <span className="hidden md:inline">•</span>
-                                                <span className="hidden md:inline">{org.location}</span>
+                                            <h2 className="text-[17px] font-semibold text-[#EDEDED]">{org.name}</h2>
+                                            <div className="text-[11px] font-semibold uppercase tracking-wider text-[#A1A1AA] flex flex-wrap gap-2 mt-1">
+                                                <span>{org.type}</span>
+                                                <span className="hidden sm:inline">•</span>
+                                                <span className="hidden sm:inline">{org.location}</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="mb-1 text-right w-full md:w-auto">
-                                        <div className="text-xs text-neutral-400 uppercase tracking-widest font-bold">Risk Score</div>
-                                        <div className={`text-3xl font-mono font-bold ${org.riskScore > 50 ? 'text-red-500' : 'text-emerald-500'}`}>
-                                            {org.riskScore > 50 ? 'High' : 'Low'} ({org.riskScore}/100)
+                                    <div className="sm:text-right flex sm:flex-col items-center sm:items-end gap-2 sm:gap-0 mt-2 sm:mt-0">
+                                        <div className="text-[10px] text-[#A1A1AA] uppercase font-bold tracking-widest">Risk Score</div>
+                                        <div className={`text-sm font-mono font-bold px-2 py-0.5 rounded-sm ${org.riskScore > 50 ? 'bg-red-500/10 text-red-500 border border-red-500/20' : 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20'}`}>
+                                            {org.riskScore}/100
                                         </div>
                                     </div>
                                 </div>
-
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-                                    <div className="bg-[#0D0D0D] p-4 rounded-xl border border-white/5">
-                                        <div className="text-xs text-neutral-500 uppercase flex items-center gap-2 mb-2">
-                                            <Clock className="w-3 h-3" /> Avg Response Time
-                                        </div>
-                                        <div className="text-xl font-mono font-bold text-white">{org.avgResponseTime}</div>
-                                        <div className="text-xs text-emerald-500 mt-1">-2 days vs Industry</div>
+                            </div>
+                            
+                            <div className="px-6 py-5 bg-[#181818] grid grid-cols-1 sm:grid-cols-3 gap-6">
+                                <div>
+                                    <div className="text-[10px] text-[#A1A1AA] font-bold uppercase tracking-widest flex items-center gap-1.5 mb-1">
+                                        <Clock className="w-3 h-3" /> Avg Response
                                     </div>
-                                    <div className="bg-[#0D0D0D] p-4 rounded-xl border border-white/5">
-                                        <div className="text-xs text-neutral-500 uppercase flex items-center gap-2 mb-2">
-                                            <TrendingDown className="w-3 h-3" /> Delay Probability
-                                        </div>
-                                        <div className="text-xl font-mono font-bold text-white">8%</div>
-                                        <div className="text-xs text-emerald-500 mt-1">{org.trend}</div>
+                                    <div className="text-[#EDEDED] font-mono text-sm">{org.avgResponseTime}</div>
+                                </div>
+                                <div>
+                                    <div className="text-[10px] text-[#A1A1AA] font-bold uppercase tracking-widest flex items-center gap-1.5 mb-1">
+                                        <TrendingDown className="w-3 h-3" /> Delay Prob
                                     </div>
-                                    <div className="bg-[#0D0D0D] p-4 rounded-xl border border-white/5">
-                                        <div className="text-xs text-neutral-500 uppercase flex items-center gap-2 mb-2">
-                                            <Users className="w-3 h-3" /> Ghost Rate
-                                        </div>
-                                        <div className="text-xl font-mono font-bold text-white">{org.ghostRate}</div>
-                                        <div className="text-xs text-amber-500 mt-1">Calculated Estimate</div>
+                                    <div className="text-[#EDEDED] font-mono text-sm">8%</div>
+                                </div>
+                                <div>
+                                    <div className="text-[10px] text-[#A1A1AA] font-bold uppercase tracking-widest flex items-center gap-1.5 mb-1">
+                                        <Users className="w-3 h-3" /> Ghost Rate
                                     </div>
+                                    <div className="text-[#EDEDED] font-mono text-sm">{org.ghostRate}</div>
                                 </div>
                             </div>
                         </div>

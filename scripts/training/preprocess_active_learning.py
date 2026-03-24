@@ -29,7 +29,7 @@ def main():
     parser.add_argument("--keep_ratio", type=float, default=0.1, help="Ratio of data to keep (e.g. 0.1 for 10%%)")
     args = parser.parse_args()
 
-    print(f"🔍 Analyzing {args.input} for Active Learning...")
+    print(f"[*] Analyzing {args.input} for Active Learning...")
 
     examples = []
     try:
@@ -49,13 +49,13 @@ def main():
     keep_count = int(len(examples) * args.keep_ratio)
     selected_examples = examples[:keep_count]
 
-    print(f"📊 Filtered {len(examples)} -> {len(selected_examples)} (Top {args.keep_ratio*100}%)")
+    print(f"[*] Filtered {len(examples)} -> {len(selected_examples)} (Top {args.keep_ratio*100}%)")
 
     with open(args.output, 'w', encoding='utf-8') as f:
         for _, line in selected_examples:
             f.write(line)
 
-    print(f"✅ Saved prioritized dataset to {args.output}")
+    print(f"[*] Saved prioritized dataset to {args.output}")
 
 if __name__ == "__main__":
     main()

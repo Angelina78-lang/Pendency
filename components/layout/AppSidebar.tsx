@@ -20,10 +20,10 @@ export function AppSidebar() {
     const pathname = usePathname()
 
     return (
-        <aside className="fixed left-0 top-0 bottom-0 w-64 bg-[#0D0D0D] border-r border-white/10 flex flex-col z-50">
+        <aside className="fixed left-0 top-0 bottom-0 w-64 bg-[#141C30] border-r border-[#1e293b] flex flex-col z-50">
             {/* Logo Area */}
             <div className="p-6 border-b border-white/5">
-                <div className="text-2xl font-bold tracking-tighter text-white font-mono">
+                <div className="text-2xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[#8B5CF6] via-[#EC4899] to-[#06B6D4] font-mono">
                     PENDENCY
                 </div>
                 <div className="text-[10px] text-neutral-500 uppercase tracking-widest mt-1">
